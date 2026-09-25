@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dati personali</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #222;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #222;
+        }
+
+        /* TABELLA */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        th {
+            background-color: #2f6fed;
+            color: white;
+            padding: 15px;
+            font-size: 17px;
+            text-align: left;
+            border: 1px solid #2f6fed;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            padding: 0;
+        }
+
+        /* CAMPI DI TESTO */
+
+        input {
+            width: 100%;
+            height: 55px;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            outline: none;
+            background-color: transparent;
+        }
+
+        input:focus {
+            background-color: #eef4ff;
+            box-shadow: inset 0 0 0 2px #2f6fed;
+        }
+
+        /* PULSANTI */
+
+        .buttons {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        button {
+            padding: 13px 28px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit {
+            background-color: #2f6fed;
+            color: white;
+        }
+
+        .submit:hover {
+            background-color: #1f57c7;
+        }
+
+        .clear {
+            background-color: #e53935;
+            color: white;
+        }
+
+        .clear:hover {
+            background-color: #c62828;
+        }
+
+        /* MESSAGGIO DI SALVATAGGIO */
+
+        .status {
+            text-align: center;
+            margin-top: 12px;
+            color: #388e3c;
+            font-size: 14px;
+        }
+
+        /* RISULTATO */
+
+        .outcome {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 8px;
+            background-color: white;
+            border-left: 5px solid #2f6fed;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        /* VERSIONE MOBILE */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 20px 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            th {
+                font-size: 14px;
+                padding: 12px;
+            }
+
+            input {
+                height: 50px;
+                font-size: 14px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Dati personali</h1>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Dato personale</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>
+                        <input type="text" class="campo">
+                    </td>
+
+                    <td>
+                        <input type="text" class="campo">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="text" class="campo">
+                    </td>
+
+                    <td>
+                        <input type="text" class="campo">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="text" class="campo">
+                    </td>
+
+                    <td>
+                        <input type="text" class="campo">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="text" class="campo">
+                    </td>
+
+                    <td>
+                        <input type="text" class="campo">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="text" class="campo">
+                    </td>
+
+                    <td>
+                        <input type="text" class="campo">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="text" class="campo">
+                    </td>
+
+                    <td>
+                        <input type="text" class="campo">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="text" class="campo">
+                    </td>
+
+                    <td>
+                        <input type="text" class="campo">
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <!-- PULSANTI -->
+
+        <div class="buttons">
+
+            <button class="submit" onclick="submitDati()">
+                Submit
+            </button>
+
+            <button class="clear" onclick="cancellaDati()">
+                Cancella tutto
+            </button>
+
+        </div>
+
+        <!-- MESSAGGIO SALVATAGGIO -->
+
+        <div class="status" id="status"></div>
+
+        <!-- RISULTATO -->
+
+        <div class="outcome" id="outcome"></div>
+
+    </div>
+
+
+    <script>
+
+        /* =========================================
+           RECUPERO DEGLI ELEMENTI DELLA PAGINA
+           ========================================= */
+
+        const campi = document.querySelectorAll(".campo");
+
+        const status = document.getElementById("status");
+
+        const outcome = document.getElementById("outcome");
+
+
+        /* =========================================
+           CARICAMENTO DEI DATI SALVATI
+           ========================================= */
+
+        campi.forEach((campo, indice) => {
+
+            const valoreSalvato =
+                localStorage.getItem("campo_" + indice);
+
+            if (valoreSalvato !== null) {
+
+                campo.value = valoreSalvato;
+
+            }
+
+
+            /* =====================================
+               SALVATAGGIO AUTOMATICO
+               ===================================== */
+
+            campo.addEventListener("input", () => {
+
+                localStorage.setItem(
+                    "campo_" + indice,
+                    campo.value
+                );
+
+
+                status.textContent =
+                    "Salvato automaticamente";
+
+
+                setTimeout(() => {
+
+                    status.textContent = "";
+
+                }, 1500);
+
+            });
+
+        });
+
+
+        /* =========================================
+           PULSANTE SUBMIT
+           ========================================= */
+
+        function submitDati() {
+
+
+            /*
+             * I tre possibili risultati.
+             */
+
+            const outcomes = [
+
+                "Ti è stato rilasciato un permesso di soggiorno a breve termine (6 turni)",
+
+                "Ti è stato rilasciato un permesso di soggiorno a lungo termine (15 turni)",
+
+                "Non ti è stato rilasciato un permesso di soggiorno a lungo termine"
+
+            ];
+
+
+            /*
+             * Sceglie casualmente uno dei tre risultati.
+             */
+
+            const indiceCasuale =
+                Math.floor(Math.random() * outcomes.length);
+
+
+            const risultato =
+                outcomes[indiceCasuale];
+
+
+            /*
+             * Mostra il risultato.
+             */
+
+            outcome.textContent = risultato;
+
+            outcome.style.display = "block";
+
+
+            /*
+             * Scorre automaticamente verso il risultato.
+             */
+
+            outcome.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }
+
+
+        /* =========================================
+           CANCELLAZIONE DEI DATI
+           ========================================= */
+
+        function cancellaDati() {
+
+
+            const conferma = confirm(
+                "Sei sicuro di voler cancellare tutti i dati?"
+            );
+
+
+            if (!conferma) {
+
+                return;
+
+            }
+
+
+            /*
+             * Cancella i contenuti dei campi.
+             */
+
+            campi.forEach((campo, indice) => {
+
+                campo.value = "";
+
+                localStorage.removeItem(
+                    "campo_" + indice
+                );
+
+            });
+
+
+            /*
+             * Nasconde il risultato precedente.
+             */
+
+            outcome.style.display = "none";
+
+
+            /*
+             * Mostra conferma.
+             */
+
+            status.textContent =
+                "Dati cancellati";
+
+
+            setTimeout(() => {
+
+                status.textContent = "";
+
+            }, 2000);
+
+        }
+
+    </script>
+
+</body>
+</html>
